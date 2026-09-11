@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ChatApp</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Login Screen -->
+    <div id="loginScreen" class="login-screen">
+
+        <div class="login-card">
+
+            <div class="logo">
+                💬
+            </div>
+
+            <h1>ChatApp</h1>
+
+            <p>Simple real-time messaging</p>
+
+            <input
+                id="usernameInput"
+                type="text"
+                placeholder="Enter your name"
+                maxlength="20"
+                autocomplete="off"
+            >
+
+            <button id="joinButton">
+                Join Chat
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- Chat Application -->
+    <div id="chatApp" class="chat-app hidden">
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+
+            <div class="sidebar-header">
+
+                <div>
+                    <h2>ChatApp</h2>
+                    <span class="online-status">
+                        ● Connected
+                    </span>
+                </div>
+
+            </div>
+
+
+            <div class="user-title">
+                Online Users
+            </div>
+
+            <div id="userList" class="user-list">
+            </div>
+
+        </aside>
+
+
+        <!-- Main Chat -->
+        <main class="chat-container">
+
+            <!-- Header -->
+            <header class="chat-header">
+
+                <div class="chat-avatar">
+                    💬
+                </div>
+
+                <div>
+                    <h3>General Chat</h3>
+                    <span id="onlineCount">
+                        0 online
+                    </span>
+                </div>
+
+            </header>
+
+
+            <!-- Messages -->
+            <section id="messages" class="messages">
+            </section>
+
+
+            <!-- Typing -->
+            <div id="typingIndicator" class="typing">
+            </div>
+
+
+            <!-- Message Input -->
+            <form id="messageForm" class="message-form">
+
+                <input
+                    id="messageInput"
+                    type="text"
+                    placeholder="Type a message..."
+                    maxlength="500"
+                    autocomplete="off"
+                >
+
+                <button type="submit">
+                    ➤
+                </button>
+
+            </form>
+
+        </main>
+
+    </div>
+
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="app.js"></script>
+
+</body>
+</html>
