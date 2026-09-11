@@ -1,128 +1,284 @@
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>ChatApp</title>
 
     <link rel="stylesheet" href="style.css">
+
 </head>
 
 <body>
 
-    <!-- Login Screen -->
-    <div id="loginScreen" class="login-screen">
 
-        <div class="login-card">
+<!-- =========================
+     LOGIN
+========================= -->
 
-            <div class="logo">
+<div id="loginScreen" class="login-screen">
+
+    <div class="login-card">
+
+        <div class="logo">
+            💬
+        </div>
+
+        <h1>ChatApp</h1>
+
+        <p>Chat and video call</p>
+
+        <input
+            id="usernameInput"
+            type="text"
+            placeholder="Enter your name"
+            maxlength="20"
+            autocomplete="off"
+        >
+
+        <button id="joinButton">
+            Join Chat
+        </button>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================
+     CHAT APP
+========================= -->
+
+<div id="chatApp" class="chat-app hidden">
+
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="sidebar-header">
+
+            <h2>ChatApp</h2>
+
+            <span class="online-status">
+                ● Connected
+            </span>
+
+        </div>
+
+
+        <div class="user-title">
+            Online Users
+        </div>
+
+
+        <div id="userList" class="user-list"></div>
+
+    </aside>
+
+
+
+    <!-- CHAT -->
+
+    <main class="chat-container">
+
+
+        <header class="chat-header">
+
+            <div class="chat-avatar">
                 💬
             </div>
 
-            <h1>ChatApp</h1>
+            <div>
 
-            <p>Simple real-time messaging</p>
+                <h3>General Chat</h3>
+
+                <span id="onlineCount">
+                    0 online
+                </span>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- MESSAGES -->
+
+        <section id="messages" class="messages"></section>
+
+
+
+        <!-- TYPING -->
+
+        <div id="typingIndicator" class="typing"></div>
+
+
+
+        <!-- MESSAGE INPUT -->
+
+        <form
+            id="messageForm"
+            class="message-form"
+        >
 
             <input
-                id="usernameInput"
+                id="messageInput"
                 type="text"
-                placeholder="Enter your name"
-                maxlength="20"
+                placeholder="Type a message..."
+                maxlength="500"
                 autocomplete="off"
             >
 
-            <button id="joinButton">
-                Join Chat
+            <button type="submit">
+                ➤
+            </button>
+
+        </form>
+
+    </main>
+
+</div>
+
+
+
+<!-- =========================
+     INCOMING CALL
+========================= -->
+
+<div
+    id="incomingCall"
+    class="call-popup hidden"
+>
+
+    <div class="call-popup-card">
+
+        <div class="call-icon">
+            📹
+        </div>
+
+        <h2 id="callerName">
+            Someone
+        </h2>
+
+        <p>
+            Incoming video call
+        </p>
+
+        <div class="call-actions">
+
+            <button
+                id="acceptCall"
+                class="accept"
+            >
+                Accept
+            </button>
+
+            <button
+                id="rejectCall"
+                class="reject"
+            >
+                Reject
             </button>
 
         </div>
 
     </div>
 
-
-    <!-- Chat Application -->
-    <div id="chatApp" class="chat-app hidden">
-
-        <!-- Sidebar -->
-        <aside class="sidebar">
-
-            <div class="sidebar-header">
-
-                <div>
-                    <h2>ChatApp</h2>
-                    <span class="online-status">
-                        ● Connected
-                    </span>
-                </div>
-
-            </div>
+</div>
 
 
-            <div class="user-title">
-                Online Users
-            </div>
 
-            <div id="userList" class="user-list">
-            </div>
+<!-- =========================
+     VIDEO CALL
+========================= -->
 
-        </aside>
+<div
+    id="videoCall"
+    class="video-call hidden"
+>
 
+    <div class="video-header">
 
-        <!-- Main Chat -->
-        <main class="chat-container">
+        <span id="callStatus">
+            Video Call
+        </span>
 
-            <!-- Header -->
-            <header class="chat-header">
-
-                <div class="chat-avatar">
-                    💬
-                </div>
-
-                <div>
-                    <h3>General Chat</h3>
-                    <span id="onlineCount">
-                        0 online
-                    </span>
-                </div>
-
-            </header>
-
-
-            <!-- Messages -->
-            <section id="messages" class="messages">
-            </section>
-
-
-            <!-- Typing -->
-            <div id="typingIndicator" class="typing">
-            </div>
-
-
-            <!-- Message Input -->
-            <form id="messageForm" class="message-form">
-
-                <input
-                    id="messageInput"
-                    type="text"
-                    placeholder="Type a message..."
-                    maxlength="500"
-                    autocomplete="off"
-                >
-
-                <button type="submit">
-                    ➤
-                </button>
-
-            </form>
-
-        </main>
+        <button id="closeVideo">
+            ✕
+        </button>
 
     </div>
 
 
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="app.js"></script>
+    <div class="video-area">
+
+        <!-- Remote video -->
+
+        <video
+            id="remoteVideo"
+            autoplay
+            playsinline
+        ></video>
+
+
+        <!-- Local video -->
+
+        <video
+            id="localVideo"
+            autoplay
+            muted
+            playsinline
+        ></video>
+
+
+        <div
+            id="videoPlaceholder"
+            class="video-placeholder"
+        >
+            Waiting for video...
+        </div>
+
+    </div>
+
+
+    <div class="video-controls">
+
+        <button id="muteButton">
+            🎤
+        </button>
+
+        <button id="cameraButton">
+            📹
+        </button>
+
+        <button
+            id="endCallButton"
+            class="end-call"
+        >
+            ☎
+        </button>
+
+    </div>
+
+</div>
+
+
+
+<script src="/socket.io/socket.io.js"></script>
+
+<script src="app.js"></script>
 
 </body>
+
 </html>
+
